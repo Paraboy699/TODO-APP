@@ -1,15 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import authService from "./authService";
 
-// Get user from local storage
+// Get user from localStorage
+
 const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
-  user: user ? user : null, // Using nullish coalescing operator for better readability
-  isError: null,
+  user: user ? user : null,
+  isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
 };
+
+// Register the user
+
+export const register = createAsyncThunk(
+  "auth/register",
+  async (user, thunkAPI) => {
+    try {
+      return await authService.register(user);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -23,9 +44,24 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Add extra reducers here if needed
+    builder
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.playload;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      });
   },
 });
 
 export const { reset } = authSlice.actions;
-export default authSlice.reducer; // Changed from `.reducers` to `.reducer` for correct export
+
+export default authSlice.reducer;
