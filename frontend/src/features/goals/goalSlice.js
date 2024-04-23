@@ -33,11 +33,7 @@ export const getGoals = createAsyncThunk(
   'goals/getAll',
   async (_, thunkAPI) => {
     try {
-      const authState = thunkAPI.getState().auth;
-      if (!authState.user || !authState.user.token) {
-        throw new Error("User is not logged in");
-      }
-      const token = authState.user.token;
+      const token = thunkAPI.getState().auth.user.token
       return await goalService.getGoals(token)
     } catch (error) {
       const message =
