@@ -45,6 +45,7 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
+  return null; // Return null to clear the user
 });
 
 export const authSlice = createSlice({

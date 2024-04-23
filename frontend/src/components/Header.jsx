@@ -1,46 +1,50 @@
+// Header.jsx
+
 import React from 'react';
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, reset } from '../features/auth/authSlice';
+import { logout, reset } from '../features/auth/authSlice'; // Import Redux actions
 
 function Header() {
+  // Hooks for navigation and Redux
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Select relevant state from Redux store
   const { user } = useSelector((state) => state.auth);
 
   // Handle user logout
-  const handleLogout = () => {
-    dispatch(logout());
-    dispatch(reset());
-    navigate('/login');
+  const onLogout = () => {
+    dispatch(logout()); // Dispatch logout action
+    dispatch(reset()); // Reset Redux state
+    navigate('/register'); // Redirect to login page
   };
 
-  // Navigate to register page
+  // Handle register link click
   const handleRegisterClick = () => {
-    navigate('/register');
+    navigate('/register'); // Redirect to registration page
   };
 
-  // Navigate to login page
+  // Handle login link click
   const handleLoginClick = () => {
-    navigate('/login');
+    navigate('/login'); // Redirect to login page
   };
 
+  // Render the header
   return (
     <header className='header'>
       <div className='logo'>
-        <h2>GoalSetter</h2>
+        <h3>GoalSetter</h3>
       </div>
       <ul>
         {user ? (
-          // Show logout button if user is logged in
           <li>
-            <button className='btn' onClick={handleLogout}>
+            <button className='btn' onClick={onLogout}>
               <FaSignOutAlt /> Logout
             </button>
           </li>
         ) : (
-          // Show login and register links if user is not logged in
           <>
             <li>
               <Link to='/login' onClick={handleLoginClick}>
