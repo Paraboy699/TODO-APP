@@ -23,11 +23,15 @@ function Login() {
 
   useEffect(() => {
     if (isError) {
-      toast.error(message)
+      toast.error(message || 'An error occurred. Please try again.')
     }
 
     if (isSuccess || user) {
       navigate('/')
+      setFormData({
+        email: '',
+        password: '',
+      })
     }
 
     dispatch(reset())
