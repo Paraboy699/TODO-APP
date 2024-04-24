@@ -23,9 +23,3 @@ Technology Stack:
 
     Authorization: JSON Web Tokens (JWT)
     Password Encryption: Bcrypt
-
-Installation:
-
-    Clone the repository:
-
-    bash
