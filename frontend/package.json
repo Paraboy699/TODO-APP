@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  
+  "proxy": "https://todo-app-oons.onrender.com",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
