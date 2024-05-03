@@ -1,9 +1,6 @@
 import axios from "axios";
 
-// "//": "http://localhost:5000", "//": "https://todo-app-oons.onrender.com",
-
-// const API_URL = "https://todo-app-oons.onrender.com/api/goals/";
-const API_URL = "http://localhost:5000/api/goals/";
+const API_URL = "/api/goals/";
 
 // Create new goal
 const createGoal = async (goalData, token) => {
