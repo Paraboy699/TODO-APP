@@ -1,6 +1,0 @@
-{
-    "rewrites": [
-      { "source": "/api/:path*", "destination": "https://todo-app-oons.onrender.com/api/:path*" }
-    ]
-  }
-  
